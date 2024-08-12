@@ -19,7 +19,11 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "generate:env": "cp .example.env .env",
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules",
+    "prod:up": "docker-compose up -d",
+    "prod:down": "docker-compose down",
+    "dev:up": "docker-compose -f docker-compose-dev.yml up -d",
+    "dev:down": "docker-compose -f docker-compose-dev.yml down"
   },
   "dependencies": {
     "@apollo/server": "^4.10.2",
