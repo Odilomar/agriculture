@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+
+  nest:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    container_name: nest
+    ports:
+      - "3000:3000"
+    entrypoint: sh -c "dockerize -wait tcp://postgres:5432 -timeout 60s npm run start:dev"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - appworks
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    container_name: pg
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.docker/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db_app
+    networks:
+      - appworks
+
+networks:
+  appworks:
+    driver: bridge
