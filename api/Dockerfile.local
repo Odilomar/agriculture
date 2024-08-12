@@ -11,4 +11,4 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 COPY . .
 
-RUN yarn install --frozen-lockfile
+RUN npm install --frozen-lockfile
