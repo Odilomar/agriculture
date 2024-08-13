@@ -23,7 +23,12 @@
     "prod:up": "docker-compose up -d",
     "prod:down": "docker-compose down",
     "dev:up": "docker-compose -f docker-compose-dev.yml up -d",
-    "dev:down": "docker-compose -f docker-compose-dev.yml down"
+    "dev:down": "docker-compose -f docker-compose-dev.yml down",
+    "migration:create": "npx typeorm-ts-node-esm migration:create",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/database/postgres-data-source.ts",
+    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d ./src/database/postgres-data-source.ts",
+    "migration:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop -d ./src/database/postgres-data-source.ts",
+    "migration:fresh": "npm run migration:drop && npm run migration:run"
   },
   "dependencies": {
     "@apollo/server": "^4.10.2",
@@ -33,6 +38,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/typeorm": "^10.0.2",
+    "dotenv": "^16.4.5",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
