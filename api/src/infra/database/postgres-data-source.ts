@@ -12,4 +12,5 @@ export default new DataSource({
   database: process.env.DB_NAME,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: Boolean(process.env.TYPEORM_SYNCRONIZE) || false,
+  migrations: ['dist/migrations/*.js'],
 });
