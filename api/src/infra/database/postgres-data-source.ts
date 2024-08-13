@@ -1,5 +1,10 @@
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
+import {
+  RuralProducerEntity,
+  RuralProducerPlantedCropsEntity,
+} from '../../modules/rural-producer/entities';
+import { PlantedCropsEntity } from '../../modules/planted-crops/entities';
 
 config();
 
@@ -10,7 +15,11 @@ export default new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  entities: [
+    RuralProducerEntity,
+    RuralProducerPlantedCropsEntity,
+    PlantedCropsEntity,
+  ],
   synchronize: Boolean(process.env.TYPEORM_SYNCRONIZE) || false,
-  migrations: ['dist/migrations/*.js'],
+  migrations: [process.env.TYPEORM_MIGRATIONS],
 });
