@@ -4,6 +4,8 @@ import {
   RuralProducerEntity,
   RuralProducerPlantedCropsEntity,
 } from './entities';
+import { RuralProducerController } from './controllers';
+import { CreateRuralProducerService } from './use-cases';
 
 @Module({
   imports: [
@@ -12,5 +14,7 @@ import {
       RuralProducerEntity,
     ]),
   ],
+  controllers: [RuralProducerController],
+  providers: [CreateRuralProducerService],
 })
 export class RuralProducerModule {}
