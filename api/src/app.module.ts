@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { RuralProducerModule } from './modules/rural-producer/rural-producer.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PlantedCropsModule } from './modules/planted-crops/planted-crops.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       },
     }),
     RuralProducerModule,
+    PlantedCropsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
