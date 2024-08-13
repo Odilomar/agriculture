@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { RuralProducerPlantedCropsEntity } from '../../rural-producer/entities';
 
 @Entity('planted_crops')
 export class PlantedCropsEntity {
@@ -13,6 +15,12 @@ export class PlantedCropsEntity {
 
   @Column({ type: 'varchar' })
   name: string;
+
+  @OneToMany(
+    () => RuralProducerPlantedCropsEntity,
+    (ruralProducerPlantedCrops) => ruralProducerPlantedCrops.plantedCrops,
+  )
+  ruralProducerPlantedCrops?: RuralProducerPlantedCropsEntity;
 
   @CreateDateColumn()
   created_at: Date;

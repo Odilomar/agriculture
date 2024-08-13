@@ -3,9 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { RuralProducerPlantedCropsEntity } from './rural-producer-planted-crops.entity';
 
 @Entity('rural_producer')
 @Check(
@@ -41,6 +43,12 @@ export class RuralProducerEntity {
 
   @Column({ type: 'double precision' })
   vegetation_farm_area: number;
+
+  @OneToMany(
+    () => RuralProducerPlantedCropsEntity,
+    (ruralProducerPlantedCrops) => ruralProducerPlantedCrops.ruralProducer,
+  )
+  ruralProducerPlantedCrops?: RuralProducerPlantedCropsEntity;
 
   @CreateDateColumn()
   created_at: Date;
