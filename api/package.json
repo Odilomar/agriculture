@@ -25,9 +25,10 @@
     "dev:up": "docker-compose -f docker-compose-dev.yml up -d",
     "dev:down": "docker-compose -f docker-compose-dev.yml down",
     "migration:create": "npx typeorm-ts-node-esm migration:create",
-    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/database/postgres-data-source.ts",
-    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d ./src/database/postgres-data-source.ts",
-    "migration:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop -d ./src/database/postgres-data-source.ts",
+    "typeorm": "npm run build && ts-node ./node_modules/typeorm/cli.js -d ./src/infra/database/postgres-data-source.ts",
+    "migration:run": "npm run typeorm migration:run",
+    "migration:revert": "npm run typeorm migration:revert",
+    "migration:drop": "npm run typeorm schema:drop",
     "migration:fresh": "npm run migration:drop && npm run migration:run"
   },
   "dependencies": {
