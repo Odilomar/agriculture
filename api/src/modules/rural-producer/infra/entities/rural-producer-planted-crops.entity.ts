@@ -5,10 +5,9 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-import { PlantedCropsEntity } from '../../planted-crops/entities';
 import { RuralProducerEntity } from './rural-producer.entity';
+import { PlantedCropsEntity } from '../../../planted-crops/entities';
 
 @Entity('rural_producer_planted_crops')
 export class RuralProducerPlantedCropsEntity {
