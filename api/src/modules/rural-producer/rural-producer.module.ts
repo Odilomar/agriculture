@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   RuralProducerEntity,
   RuralProducerPlantedCropsEntity,
+  RuralProducerPlantedCropsRepository,
   RuralProducerRepository,
 } from './infra';
 import { RuralProducerController } from './controllers';
@@ -16,6 +17,11 @@ import { CreateRuralProducerService } from './use-cases';
     ]),
   ],
   controllers: [RuralProducerController],
-  providers: [RuralProducerRepository, CreateRuralProducerService],
+  providers: [
+    RuralProducerRepository,
+    RuralProducerPlantedCropsRepository,
+
+    CreateRuralProducerService,
+  ],
 })
 export class RuralProducerModule {}
