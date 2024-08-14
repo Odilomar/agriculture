@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { RuralProducerEntity } from '../../../../modules/rural-producer/entities';
 import { faker } from '@faker-js/faker';
 import * as dochelper from 'dochelper';
+import { RuralProducerEntity } from '../../../../modules/rural-producer/infra';
 
 export class AddRuralProducerData1723546694149 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
