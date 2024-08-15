@@ -57,6 +57,6 @@ export class RuralProducerEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @DeleteDateColumn()
-  deleted_at: Date | null;
+  @DeleteDateColumn({ nullable: true })
+  deleted_at?: Date;
 }
