@@ -5,3 +5,5 @@ export const RURAL_PRODUCER_WITH_SAME_CNPJ_OR_CPF_ALREADY_EXISTS = `There's alre
 
 export const CPF_AND_CNPJ_ERROR =
   'It should only exists a CPF or a CNPJ. Not both!';
+
+export const RURAL_PRODUCER_NOT_FOUND = 'Rural Producer not found!';
