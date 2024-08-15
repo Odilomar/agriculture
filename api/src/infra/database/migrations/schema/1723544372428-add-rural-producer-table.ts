@@ -71,6 +71,11 @@ export class AddRuralProducerTable1723544372428 implements MigrationInterface {
         default: 'now()',
         isNullable: true,
       },
+      {
+        name: 'deleted_at',
+        type: 'timestamptz',
+        isNullable: true,
+      },
     ],
   });
   private tableCheck = new TableCheck({

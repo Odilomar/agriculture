@@ -29,6 +29,11 @@ export class AddPlantedCropsTable1723544847396 implements MigrationInterface {
         default: 'now()',
         isNullable: true,
       },
+      {
+        name: 'deleted_at',
+        type: 'timestamptz',
+        isNullable: true,
+      },
     ],
   });
 
