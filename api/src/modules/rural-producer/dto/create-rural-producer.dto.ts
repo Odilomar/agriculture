@@ -10,6 +10,7 @@ import {
 import {
   IsCustomCNPJ,
   IsCustomCPF,
+  IsCustomTotalFarmArea,
   transformToDoubleNumber,
   transformToNumberArray,
   transformToStringCnpj,
@@ -60,6 +61,7 @@ export class CreateRuralProducerDto {
   state: string;
 
   @IsNumberString()
+  @IsCustomTotalFarmArea()
   @ApiProperty({
     example: 84,
   })
