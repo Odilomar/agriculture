@@ -21,10 +21,10 @@ export class CustomTotalFarmAreaValidation
   ): Promise<boolean> {
     const object = args.object as any;
 
-    const arableFarmArea = object['arable_farm_area'] as number;
-    const vegetationFarmArea = object['vegetation_farm_area'] as number;
+    const arableFarmArea = Number(object['arable_farm_area']);
+    const vegetationFarmArea = Number(object['vegetation_farm_area']);
 
-    return arableFarmArea + vegetationFarmArea <= totalFarmArea;
+    return arableFarmArea + vegetationFarmArea <= Number(totalFarmArea);
   }
 
   defaultMessage(): string {
