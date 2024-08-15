@@ -12,7 +12,15 @@ export class CreateRuralProducerService {
     private readonly ruralProducerPlantedCropsRepository: RuralProducerPlantedCropsRepository,
   ) {}
 
-  async execute({ plantedCropsIds, ...body }: CreateRuralProducerDto) {
+  private async customValidations(
+    body: Omit<CreateRuralProducerDto, 'plantedCropsIds'>,
+  ) {
+    if (body.cpf && body.cnpj) {
+      throw new BadRequestException(
+        'It should only exists a CPF or a CNPJ. Not both!',
+      );
+    }
+
     const cpfOrCnpj = body.cpf || body.cnpj;
 
     const foundRuralProducer = await this.ruralProducerRepository.findOne({
@@ -31,6 +39,10 @@ export class CreateRuralProducerService {
       throw new BadRequestException(
         `There's already a rural producer with same CPF/CNPJ created!`,
       );
+  }
+
+  async execute({ plantedCropsIds, ...body }: CreateRuralProducerDto) {
+    await this.customValidations(body);
 
     const [ruralProducer] = await this.ruralProducerRepository.save([body]);
 

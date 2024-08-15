@@ -20,45 +20,63 @@ export class CreateRuralProducerDto {
   @IsString()
   @IsCustomCPF()
   @IsOptional()
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    example: '89156834713',
+  })
   @Transform(transformToStringCpf)
   cpf?: string;
 
   @IsString()
   @IsCustomCNPJ()
   @IsOptional()
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    example: '58913619000177',
+  })
   @Transform(transformToStringCnpj)
   cnpj?: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({
+    example: 'deserunt voluptatem esse',
+  })
   producer_name: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({
+    example: 'sint totam id',
+  })
   farm_name: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({
+    example: 'recusandae rerum voluptas',
+  })
   city: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({
+    example: 'qui',
+  })
   state: string;
 
   @IsNumberString()
-  @ApiProperty()
+  @ApiProperty({
+    example: 84,
+  })
   @Transform(transformToDoubleNumber)
   total_farm_area: number;
 
   @IsNumberString()
-  @ApiProperty()
+  @ApiProperty({
+    example: 39,
+  })
   @Transform(transformToDoubleNumber)
   arable_farm_area: number;
 
   @IsNumberString()
-  @ApiProperty()
+  @ApiProperty({
+    example: 44,
+  })
   @Transform(transformToDoubleNumber)
   vegetation_farm_area: number;
 
@@ -67,6 +85,7 @@ export class CreateRuralProducerDto {
   @ApiProperty({
     isArray: true,
     type: Number,
+    example: [1, 2],
   })
   @Transform(transformToNumberArray)
   plantedCropsIds: number[];
