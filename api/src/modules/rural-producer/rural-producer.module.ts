@@ -7,8 +7,11 @@ import {
   RuralProducerRepository,
 } from './infra';
 import { RuralProducerController } from './controllers';
-import { CreateRuralProducerService } from './use-cases';
-import { DeleteRuralProducerService } from './use-cases/delete-rural-producer.service';
+import {
+  CreateRuralProducerService,
+  DeleteRuralProducerService,
+  GetDashboardIntelService,
+} from './use-cases';
 
 @Module({
   imports: [
@@ -23,8 +26,8 @@ import { DeleteRuralProducerService } from './use-cases/delete-rural-producer.se
     RuralProducerPlantedCropsRepository,
 
     CreateRuralProducerService,
-
     DeleteRuralProducerService,
+    GetDashboardIntelService,
   ],
 })
 export class RuralProducerModule {}

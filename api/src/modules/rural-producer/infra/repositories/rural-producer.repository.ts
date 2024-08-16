@@ -21,4 +21,50 @@ export class RuralProducerRepository {
   async delete(id: number) {
     return this.repository.softDelete({ id });
   }
+
+  async totalFarmAreaAmount() {
+    const { total } = await this.repository
+      .createQueryBuilder('rural_producer')
+      .groupBy('id')
+      .select('SUM(total_farm_area) as total')
+      .getRawOne();
+
+    return total;
+  }
+
+  async totalFarmAmount() {
+    return this.repository.count();
+  }
+
+  async totalFarmsByStates() {
+    const farms = await this.repository
+      .createQueryBuilder('rural_producer')
+      .groupBy('state')
+      .select(['COUNT(*) as total', 'state'])
+      .getRawMany();
+
+    return farms.map((farm) => ({
+      ...farm,
+      total: Number(farm.total),
+    }));
+  }
+
+  async totalUsedFarmArea() {
+    const {
+      total_vegetation_farm_area: totalVegetationFarmArea,
+      total_arable_farm_area: totalArableFarmArea,
+    } = await this.repository
+      .createQueryBuilder('rural_producer')
+      .groupBy('id')
+      .select([
+        'SUM(vegetation_farm_area) as total_vegetation_farm_area',
+        'SUM(arable_farm_area) AS total_arable_farm_area',
+      ])
+      .getRawOne();
+
+    return {
+      totalVegetationFarmArea,
+      totalArableFarmArea,
+    };
+  }
 }
