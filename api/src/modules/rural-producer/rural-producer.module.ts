@@ -12,6 +12,7 @@ import {
   DeleteRuralProducerService,
   GetDashboardIntelService,
 } from './use-cases';
+import { PlantedCropsModule } from '../planted-crops/planted-crops.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import {
       RuralProducerPlantedCropsEntity,
       RuralProducerEntity,
     ]),
+    PlantedCropsModule,
   ],
   controllers: [RuralProducerController],
   providers: [

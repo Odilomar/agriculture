@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOneOptions, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { PlantedCropsEntity } from '../entities';
 
 @Injectable()
@@ -10,11 +10,21 @@ export class PlantedCropsRepository {
     private readonly repository: Repository<PlantedCropsEntity>,
   ) {}
 
-  async findOne(options: FindOneOptions<PlantedCropsEntity>) {
-    return this.repository.findOne(options);
-  }
+  async totalUsedCropsAmount() {
+    const usedCrops = await this.repository
+      .createQueryBuilder('planted_crops')
+      .leftJoinAndSelect(
+        'planted_crops.ruralProducerPlantedCrops',
+        'rural_producer_planted_crops',
+      )
+      .groupBy('planted_crops.id')
+      .addGroupBy('planted_crops.name')
+      .select(['planted_crops.name as name', 'COUNT(*) as total'])
+      .getRawMany();
 
-  async save(entities: Partial<PlantedCropsEntity>[]) {
-    return this.repository.save(entities);
+    return usedCrops.map((crop) => ({
+      ...crop,
+      total: Number(crop.total),
+    }));
   }
 }
