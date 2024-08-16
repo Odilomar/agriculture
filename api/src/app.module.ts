@@ -17,7 +17,6 @@ import { PlantedCropsModule } from './modules/planted-crops/planted-crops.module
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      logging: true,
       synchronize: false,
       poolSize: 5,
       extra: {
