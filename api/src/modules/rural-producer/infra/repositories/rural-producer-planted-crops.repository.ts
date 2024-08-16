@@ -17,4 +17,8 @@ export class RuralProducerPlantedCropsRepository {
   async save(entities: Partial<RuralProducerPlantedCropsEntity>[]) {
     return this.repository.save(entities);
   }
+
+  async deleteByRuralProducerId(id_rural_producer: number) {
+    await this.repository.delete({ id_rural_producer });
+  }
 }

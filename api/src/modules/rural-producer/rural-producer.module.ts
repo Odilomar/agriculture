@@ -11,6 +11,7 @@ import {
   CreateRuralProducerService,
   DeleteRuralProducerService,
   GetDashboardIntelService,
+  UpdateRuralProducerService,
 } from './use-cases';
 import { PlantedCropsModule } from '../planted-crops/planted-crops.module';
 
@@ -30,6 +31,7 @@ import { PlantedCropsModule } from '../planted-crops/planted-crops.module';
     CreateRuralProducerService,
     DeleteRuralProducerService,
     GetDashboardIntelService,
+    UpdateRuralProducerService,
   ],
 })
 export class RuralProducerModule {}
