@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { PlantedCropsEntity } from '../../../../modules/planted-crops/entities';
 import {
   RuralProducerEntity,
   RuralProducerPlantedCropsEntity,
 } from '../../../../modules/rural-producer/infra';
+import { PlantedCropsEntity } from '../../../../modules/planted-crops/infra';
 
 export class AddRelationDataFromRuralProducerToPlantedCrops1723551552181
   implements MigrationInterface

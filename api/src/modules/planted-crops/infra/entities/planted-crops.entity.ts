@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { RuralProducerPlantedCropsEntity } from '../../rural-producer/infra';
+import { RuralProducerPlantedCropsEntity } from '../../../rural-producer/infra';
 
 @Entity('planted_crops')
 export class PlantedCropsEntity {

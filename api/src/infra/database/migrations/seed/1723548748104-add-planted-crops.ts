@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { PlantedCropsEntity } from '../../../../modules/planted-crops/entities';
+import { PlantedCropsEntity } from '../../../../modules/planted-crops/infra';
 
 export class AddPlantedCrops1723548748104 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

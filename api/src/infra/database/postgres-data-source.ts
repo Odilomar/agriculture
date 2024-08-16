@@ -1,10 +1,10 @@
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
-import { PlantedCropsEntity } from '../../modules/planted-crops/entities';
 import {
   RuralProducerEntity,
   RuralProducerPlantedCropsEntity,
 } from '../../modules/rural-producer/infra';
+import { PlantedCropsEntity } from '../../modules/planted-crops/infra';
 
 config();
 
