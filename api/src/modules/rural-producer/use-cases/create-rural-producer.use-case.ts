@@ -23,7 +23,7 @@ export class CreateRuralProducerService {
     total_farm_area,
     arable_farm_area,
     vegetation_farm_area,
-  }: Omit<CreateRuralProducerDto, 'plantedCropsIds'>) {
+  }: Omit<CreateRuralProducerDto, 'plantedCropsIds'>): Promise<void> {
     if (cpf && cnpj) {
       throw new BadRequestException(CPF_AND_CNPJ_ERROR);
     }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PlantedCropsEntity } from '../entities';
+import { ITotalUsedCropsAmount } from '../../interfaces';
 
 @Injectable()
 export class PlantedCropsRepository {
@@ -10,7 +11,7 @@ export class PlantedCropsRepository {
     private readonly repository: Repository<PlantedCropsEntity>,
   ) {}
 
-  async totalUsedCropsAmount() {
+  async totalUsedCropsAmount(): Promise<ITotalUsedCropsAmount[]> {
     const usedCrops = await this.repository
       .createQueryBuilder('planted_crops')
       .leftJoinAndSelect(

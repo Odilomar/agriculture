@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RuralProducerRepository } from '../infra';
 import { GetAmountByCropsService } from '../../planted-crops/use-cases';
+import { GetDashboardIntelResponseDto } from '../dto';
 
 @Injectable()
 export class GetDashboardIntelService {
@@ -9,7 +10,7 @@ export class GetDashboardIntelService {
     private readonly getAmountByCropsService: GetAmountByCropsService,
   ) {}
 
-  async execute() {
+  async execute(): Promise<GetDashboardIntelResponseDto> {
     const [
       totalFarmArea,
       totalFarms,

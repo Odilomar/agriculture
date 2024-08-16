@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RuralProducerEntity } from '../entities';
 import { FindOneOptions, Repository } from 'typeorm';
+import { ITotalFarmsByState, ITotalUsedFarmArea } from '../../interfaces';
 
 @Injectable()
 export class RuralProducerRepository {
@@ -22,7 +23,7 @@ export class RuralProducerRepository {
     return this.repository.softDelete({ id });
   }
 
-  async totalFarmAreaAmount() {
+  async totalFarmAreaAmount(): Promise<number> {
     const { total } = await this.repository
       .createQueryBuilder('rural_producer')
       .groupBy('id')
@@ -32,11 +33,11 @@ export class RuralProducerRepository {
     return total;
   }
 
-  async totalFarmAmount() {
+  async totalFarmAmount(): Promise<number> {
     return this.repository.count();
   }
 
-  async totalFarmsByStates() {
+  async totalFarmsByStates(): Promise<ITotalFarmsByState[]> {
     const farms = await this.repository
       .createQueryBuilder('rural_producer')
       .groupBy('state')
@@ -49,7 +50,7 @@ export class RuralProducerRepository {
     }));
   }
 
-  async totalUsedFarmArea() {
+  async totalUsedFarmArea(): Promise<ITotalUsedFarmArea> {
     const {
       total_vegetation_farm_area: totalVegetationFarmArea,
       total_arable_farm_area: totalArableFarmArea,

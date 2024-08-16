@@ -8,7 +8,7 @@ export class DeleteRuralProducerService {
     private readonly ruralProducerRepository: RuralProducerRepository,
   ) {}
 
-  async execute(id: number) {
+  async execute(id: number): Promise<void> {
     const found = await this.ruralProducerRepository.findOne({ where: { id } });
 
     if (!found) {
