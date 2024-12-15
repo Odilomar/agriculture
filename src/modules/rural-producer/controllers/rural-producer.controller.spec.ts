@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import * as request from 'supertest';
 import { RuralProducerController } from './rural-producer.controller';
 import {
   CreateRuralProducerService,
@@ -14,10 +16,11 @@ import {
 import { faker } from '@faker-js/faker';
 
 describe('RuralProducerController', () => {
-  let ruralProducerController: RuralProducerController;
+  let app: INestApplication;
   let getDashboardIntelService: GetDashboardIntelService;
   let deleteRuralProducerService: DeleteRuralProducerService;
   let updateRuralProducerService: UpdateRuralProducerService;
+  let createRuralProducerService: CreateRuralProducerService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -50,9 +53,9 @@ describe('RuralProducerController', () => {
       ],
     }).compile();
 
-    ruralProducerController = module.get<RuralProducerController>(
-      RuralProducerController,
-    );
+    app = module.createNestApplication();
+    await app.init();
+
     getDashboardIntelService = module.get<GetDashboardIntelService>(
       GetDashboardIntelService,
     );
@@ -62,6 +65,13 @@ describe('RuralProducerController', () => {
     updateRuralProducerService = module.get<UpdateRuralProducerService>(
       UpdateRuralProducerService,
     );
+    createRuralProducerService = module.get<CreateRuralProducerService>(
+      CreateRuralProducerService,
+    );
+  });
+
+  afterEach(async () => {
+    await app.close();
   });
 
   describe('getDashboard', () => {
@@ -83,16 +93,21 @@ describe('RuralProducerController', () => {
       };
       jest.spyOn(getDashboardIntelService, 'execute').mockResolvedValue(result);
 
-      expect(await ruralProducerController.getDashboard()).toBe(result);
+      const response = await request(app.getHttpServer())
+        .get('/rural-producer/dashboard')
+        .expect(200);
+
+      expect(response.body).toEqual(result);
     });
 
     it('should throw an error if service fails', async () => {
-      const error = new Error('Service failed');
-      jest.spyOn(getDashboardIntelService, 'execute').mockRejectedValue(error);
+      jest
+        .spyOn(getDashboardIntelService, 'execute')
+        .mockRejectedValueOnce(new Error());
 
-      await expect(ruralProducerController.getDashboard()).rejects.toThrow(
-        'Service failed',
-      );
+      await request(app.getHttpServer())
+        .get('/rural-producer/dashboard')
+        .expect(500);
     });
   });
 
@@ -103,21 +118,21 @@ describe('RuralProducerController', () => {
         'execute',
       );
 
-      await ruralProducerController.deleteRuralProducerById(1);
+      await request(app.getHttpServer())
+        .delete('/rural-producer/1')
+        .expect(200);
 
-      expect(spyOnDeleteRuralProducer).toHaveBeenCalledWith(1);
+      expect(spyOnDeleteRuralProducer).toHaveBeenCalledWith('1');
     });
 
     it('should throw an error if service fails', async () => {
-      const error = new Error('Service failed');
-
       jest
         .spyOn(deleteRuralProducerService, 'execute')
-        .mockRejectedValue(error);
+        .mockRejectedValue(new Error());
 
-      await expect(
-        ruralProducerController.deleteRuralProducerById(1),
-      ).rejects.toThrow('Service failed');
+      await request(app.getHttpServer())
+        .delete('/rural-producer/1')
+        .expect(500);
     });
   });
 
@@ -132,23 +147,27 @@ describe('RuralProducerController', () => {
         updateRuralProducerService,
         'execute',
       );
-      await ruralProducerController.updateRuralProducerById(
-        updateDto.id,
-        updateDto,
-      );
 
-      expect(spyOnUpdateRuralProducer).toHaveBeenCalledWith(updateDto);
+      await request(app.getHttpServer())
+        .put('/rural-producer/1')
+        .send(updateDto)
+        .expect(200);
+
+      expect(spyOnUpdateRuralProducer).toHaveBeenCalledWith({
+        ...updateDto,
+        id: String(updateDto.id),
+      });
     });
 
     it('should throw an error if service fails', async () => {
-      const error = new Error('Service failed');
       jest
         .spyOn(updateRuralProducerService, 'execute')
-        .mockRejectedValue(error);
+        .mockRejectedValue(new Error());
 
-      await expect(
-        ruralProducerController.updateRuralProducerById(1, updateDto),
-      ).rejects.toThrow('Service failed');
+      await request(app.getHttpServer())
+        .put('/rural-producer/1')
+        .send(updateDto)
+        .expect(500);
     });
   });
 
@@ -166,24 +185,27 @@ describe('RuralProducerController', () => {
 
     it('should create a rural producer', async () => {
       const spyOnCreateRuralProducer = jest.spyOn(
-        ruralProducerController['createRuralProducerUseCase'],
+        createRuralProducerService,
         'execute',
       );
 
-      await ruralProducerController.createRuralProducer(createDto);
+      await request(app.getHttpServer())
+        .post('/rural-producer')
+        .send(createDto)
+        .expect(201);
 
       expect(spyOnCreateRuralProducer).toHaveBeenCalledWith(createDto);
     });
 
     it('should throw an error if service fails', async () => {
-      const error = new Error('Service failed');
       jest
-        .spyOn(ruralProducerController['createRuralProducerUseCase'], 'execute')
-        .mockRejectedValue(error);
+        .spyOn(createRuralProducerService, 'execute')
+        .mockRejectedValue(new Error());
 
-      await expect(
-        ruralProducerController.createRuralProducer(createDto),
-      ).rejects.toThrow('Service failed');
+      await request(app.getHttpServer())
+        .post('/rural-producer')
+        .send(createDto)
+        .expect(500);
     });
   });
 });
