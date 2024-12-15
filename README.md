@@ -1,6 +1,6 @@
 ## Description
 
-API desenvolvido com NestJS usando TypeORM e PostgreSQL para o seguinte teste: https://github.com/brain-ag/trabalhe-conosco
+API developed with NestJS using TypeORM and PostgreSQL for the following test: https://github.com/brain-ag/trabalhe-conosco
 
 ## Start up
 
