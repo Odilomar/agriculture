@@ -41,6 +41,8 @@ $ npm run start:prod
 
 ## Test
 
+Coverage is setup to 80% for branchs, functions, lines and statements, but the current state of the code is greater then 90%.
+
 ```bash
 # unit tests
 $ npm run test
